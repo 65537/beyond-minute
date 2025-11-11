@@ -25,7 +25,7 @@ def initializeFromArgparse(args=None):
 	if sigma is None or sigma in ['s', 'split']:
 		sigma = sage.all.PermutationGroupElement(())
 	elif sigma in ['qs', 'quasi-split']:
-		automorphisms = D.automorphism_group()
+		automorphisms = dynkin_diagram.automorphism_group()
 		assert(automorphisms.order() == 2)
 		sigma = next(iter(s for s in automorphisms if not s.is_one()))
 	else:
@@ -79,7 +79,7 @@ def newtonPointAndDefect(x):
 	newton_point = newtonPoint(x)
 	defect_vector = sage.all.vector((newton_point - newtonPoint(extended_affine_weyl_group.W0P().from_translation(x.to_translation_right()))).dense_coefficient_list())
 	defect_vector = cartan_matrix.transpose().inverse() * defect_vector
-	defect = sum(int(not defect_vector[orbit[0]-1].is_integer()) for orbit in sigma_orbits)
+	defect = sum(int(not sum(defect_vector[i-1] for i in orbit).is_integer()) for orbit in sigma_orbits)
 	return (newton_point, defect)
 @functools.lru_cache(maxsize=None)
 def tupleLength(xs):

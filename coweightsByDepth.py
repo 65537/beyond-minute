@@ -17,7 +17,7 @@ while queue:
 	depth = max(sum(c * p for (c,p) in zip(coefficients, pairings)) for pairings in depth_pairings)
 	if depth >= args.Depth:
 		continue
-	print(mu)
+	print("%s has depth %s" % (mu,depth))
 	for fundamental_coweight in coweight_lattice.basis():
 		new_mu = mu + fundamental_coweight
 		if new_mu not in queue:

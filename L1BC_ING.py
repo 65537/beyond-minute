@@ -78,7 +78,7 @@ for xs in sorted(xs_products.keys(), key=tupleLength):
 max_gnp = None
 for xs in xs_hnindec_max:
 	n,d = xs_gnp[xs]
-	print("%s is Bruhat maximal in the HN-indec locus and has generic Newton point %s" % (xs, n))
+	print("%s is Bruhat maximal in the HN-indec locus. It has length %d and generic Newton point %s" % (xs, tupleLength(xs), n))
 	if max_gnp is None:
 		max_gnp = n
 	elif max_gnp != n:

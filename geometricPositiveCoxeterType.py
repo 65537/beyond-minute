@@ -37,10 +37,9 @@ def lengthPositive(x):
 	result = set(worklist)
 	while worklist:
 		v = worklist.pop()
-		vd = root_system.weight_lattice().weyl_group()(v)
+		vinv = v.inverse()
 		for (i,alpha) in enumerate(root_system.root_lattice().simple_roots()):
-			valpha = alpha.weyl_action(vd)
-			lfun = translation.scalar(valpha) +int(tworho_vee.scalar(valpha)>0) - int(classical_coweight.scalar(valpha)>0)
+			lfun = vinv.action(translation).scalar(alpha) +int(vinv.action(tworho_vee).scalar(alpha)>0) - int(vinv.action(classical_coweight).scalar(alpha)>0)
 			#print("%s, %s, %s has valpha=%s, lfun = %d" % (x, v, alpha, valpha, lfun))
 			assert(lfun >= 0)
 			if lfun > 0:
@@ -80,11 +79,12 @@ def geometricCoxeterType(xs):
 		descents = [descentSets(x) for x in xs]
 		for i in range(len(xs)):
 			for j in descents[i]['right']:
-				conj = tuple( (simple_reflections[sigma.inverse()(j)] if (k+1-i) % degree == 0 else one) * xs[k] * (simple_reflections[j] if k == i else one) for k in range(degree))
+				jleft = sigma.inverse()(j)
+				conj = tuple( (simple_reflections[jleft] if (k+1-i) % degree == 0 else one) * xs[k] * (simple_reflections[j] if k == i else one) for k in range(degree))
 				if conj in cyclic_shift_class:
 					continue
 				cyclic_shift_class.add(conj)
-				if j in descents[(i-1) % degree]['left']:
+				if jleft in descents[(i-1) % degree]['left']:
 					assert(tupleLength(conj) < tupleLength(xs))
 					gct_2 = geometricCoxeterType(conj)
 					if gct_2 is False:
@@ -111,7 +111,8 @@ def geometricCoxeterType(xs):
 		clsigma_omega = x_cl.action(sigma_omega)
 		clsigma_matrix.append( (clsigma_omega - omega).dense_coefficient_list())
 	clsigma_matrix = sage.all.matrix(clsigma_matrix).transpose()
-	sigma_reflection_length = clsigma_matrix.rank()
+	sigma_reflection_length = clsigma_matrix.rank() + len(sigma_orbits) - len(root_system.index_set())
+	assert(sigma_reflection_length >= 0 and sigma_reflection_length <= len(sigma_orbits))
 	xlength_gct_bound = newton2rho + sigma_reflection_length - defect
 	assert(xlength >= xlength_gct_bound)
 	if xlength == xlength_gct_bound:
@@ -126,7 +127,7 @@ for xs in itertools.product(*[enumerateAdmissibleLocus(m, index_set) for m in mu
 	print("%s has length %d" % (xs, tupleLength(xs)))
 	total_size += 1
 	for vs in itertools.product(*[lengthPositive(x) for x in xs]):
-		conj_classical_part = tuple(vs[i-1].inverse() * xs[i].to_classical_weyl() * vs[i] for i in range(len(xs)))
+		conj_classical_part = tuple(weyl_group.from_reduced_word([sigma.inverse()(j) for j in reversed(vs[i-1].reduced_word())]) * xs[i].to_classical_weyl() * vs[i] for i in range(len(xs)))
 		#print("%s -> %s" % (vs, conj_classical_part))
 		support = tupleSupport(conj_classical_part)
 		if tupleLength(conj_classical_part) == sum(int(any(i in support for i in orbit)) for orbit in sigma_orbits):
