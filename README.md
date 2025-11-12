@@ -8,7 +8,7 @@ Call the Sagemath interpreter on one of the three program files, which are calle
 
 ### Enumeration of coweights of depth <2
 
-In the proof of Proposition ..., we rely on exhaustive computations of coweights of depth $<2$ for all root systems of rank $<20$. In order to verify our claims, one may make the following calls.
+In the proof of Theorem 2.7, we rely on exhaustive computations of coweights of depth $<2$ for all root systems of rank $<20$. In order to verify our claims, one may make the following calls.
 
 ```
 sage coweightsByDepth.py A1 2
@@ -28,7 +28,7 @@ sage coweightsByDepth.py F4 2
 
 ### Verification of geometric and positive Coxeter type
 
-In the proof of Theorem ... and Proposition ..., we claim that a number of admissible sets have to be checked individually to verify geometric resp. positive Coxeter type. For this, one may make the following calls.
+In the proof of Theorem 3.11 and Proposition 3.22, we claim that a number of admissible sets have to be checked individually to verify geometric resp. positive Coxeter type. For this, one may make the following calls.
 
 ```
 sage geometricPositiveCoxeterType.py A1 omega[1],omega[1],omega[1]
@@ -47,11 +47,11 @@ sage geometricPositiveCoxeterType.py A2 omega[1] --level iwahori --frobenius qua
 
 ### Verification of (ING) and (L1BC)
 
-In the proof of Theorem ..., we rely on checking the property (L1BC) in a finite number of exceptional cases. Explicitly, one may make the following calls.
+In the proof of Theorem 4.8, we rely on checking the property (L1BC) in a finite number of exceptional cases. Explicitly, one may make the following calls.
 ```
 sage L1BC_ING.py A4 omega[1]+omega[2]
 sage L1BC_ING.py A5 omega[3]
 sage L1BC_ING.py A6 omega[3]
 sage L1BC_ING.py A7 omega[3]
 ```
-The first such call also verifies the property (ING) and computes the maximal length as needed in the proof of Theorem ...
+The first such call also verifies the property (ING) and computes the maximal length as needed in the proof of Theorem 5.30.
