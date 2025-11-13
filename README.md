@@ -1,5 +1,5 @@
 # Affine Deligne-Lusztig varieties beyond the minute case
-This is the software repository associated with the preprint https://arxiv.org/... from Felix Schremmer and Eva Viehmann. The software provides mathematical calculations associated to admissible sets and affine Deligne-Lusztig varieties as described in our paper. This does not only serve as a tool to verify some of our claims made, but may also assist in identifying new cases worth studying.
+This is the software repository associated with the preprint <https://arxiv.org/abs/2511.08879> from Felix Schremmer and Eva Viehmann. The software provides mathematical calculations associated to admissible sets and affine Deligne-Lusztig varieties as described in our paper. This does not only serve as a tool to verify some of our claims made, but may also assist in identifying new cases worth studying.
 ## Installation
 The requirement is an up to date installation of the [Sagemath](https://www.sagemath.org/) computer algebra system. Then, you may clone this github repository or manually download the program files into a folder of your choice.
 
